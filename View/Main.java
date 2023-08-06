@@ -10,18 +10,19 @@ import Model.*;
 import Controller.Bookstore;
 
 public class Main {
+
     public static void main(String[] args) throws Exception {
         Scanner sc = new Scanner(System.in);
-        
+
         String options[] = {
-            "Add a new item to the cart",
-            "Add a new customer",
+            "Add a new book to the storage",
+            "Remove a book in the storage",
             "Create an invoice",
             "Sort the invoice list by the customer name",
             "Search the invoice list",
             "Exit"
         };
-        
+
         final String fileBook = "src\\Input\\ListOfBooks.txt";
         final String fileUser = "src\\Input\\ListOfUsers.txt";
         final String fileAddingBook = "src\\Output\\ListOfBooks2.txt";
@@ -30,27 +31,23 @@ public class Main {
         Bookstore bookstore = null;
         bookstore = new Bookstore(fileBook, fileUser);
         boolean checkUser = bookstore.checkUser();
-        
-        
+
         do {
-            while(!checkUser) {
+            while (!checkUser) {
                 checkUser = bookstore.checkUser();
-            } 
+            }
             System.out.println("\nBook Management Program");
             choice = Menu.getChoice(options);
-            switch(choice) {
+            switch (choice) {
                 case 1:
-                    System.out.println("1");
-                    break;
-                case 5:
-                    bookstore.writeFile(fileBook, bookstore.removeBook());
-                    break;
-                case 6:
                     bookstore.writeFile(fileBook, bookstore.addBook());
+                    break;
+                case 2:
+                    bookstore.writeFile(fileBook, bookstore.removeBook());
                     break;
                 default:
                     System.out.println("Good bye!");
             }
-        } while(choice > 0 && choice < 6);
+        } while (choice > 0 && choice < options.length + 1);
     }
 }

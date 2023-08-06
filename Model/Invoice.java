@@ -11,8 +11,7 @@ import java.util.*;
 public class Invoice {
     
     private String idInvoice;
-    private static String idOriginal = "INV 2023";
-    private static int sID = 0000;
+    private static int sID = 10000;
     private Date date;
     private User user;
     private Book books;
@@ -23,7 +22,7 @@ public class Invoice {
     }
 
     public Invoice(Date date, User user, Book books, double totalPrice, int totalBooks) {
-        this.idInvoice = idOriginal + "-" + Integer.toString(sID++);
+        this.idInvoice = Integer.toString(sID++);
         this.date = date;
         this.user = user;
         this.books = books;
@@ -33,10 +32,6 @@ public class Invoice {
 
     public String getIdInvoice() {
         return idInvoice;
-    }
-
-    public static String getIdOriginal() {
-        return idOriginal;
     }
 
     public Date getDate() {
@@ -63,10 +58,6 @@ public class Invoice {
         this.idInvoice = idInvoice;
     }
 
-    public static void setIdOriginal(String idOriginal) {
-        Invoice.idOriginal = idOriginal;
-    }
-
     public void setDate(Date date) {
         this.date = date;
     }
@@ -89,10 +80,16 @@ public class Invoice {
     
     @Override
     public String toString() {
-        return "Invoice [" + "ID = " + idInvoice
-                + ", Date = " + date
-                + ", User = " + user
-                + ", Total Price = " + totalPrice
-                + ", Total Books = " + totalBooks + "]";
+//        return "Invoice [" + "ID = " + idInvoice
+//                + ", Date = " + date
+//                + ", User = " + user
+//                + ", Total Price = " + totalPrice
+//                + ", Total Books = " + totalBooks + "]";
+        return "INV 2023" + "-" + idInvoice
+                + "\nDate: " + date
+                + "\nUser: " + user
+                + "\nBook(s): " + books.toString()
+                + "\nTotal Price: " + totalPrice
+                + "\nTotal Books: " + totalBooks;
     }
 }

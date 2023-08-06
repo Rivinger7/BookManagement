@@ -123,7 +123,6 @@ public class Bookstore {
     // Adding and Removing function
     
     public List<Book> addBook() {
-        List<Book> list = new ArrayList<>(bookList);
         // Nên thêm chức năng nhập vào mỗi function
         System.out.print("Enter the book name: ");
         String name = sc.nextLine();
@@ -134,12 +133,29 @@ public class Bookstore {
         System.out.print("Enter the quantity: ");
         int quantity = sc.nextInt();
         sc.skip("\n");
-        
+
         Book book = new Book("ISBN 978", price, name, type, quantity);
-        list.add(book);
-        return list;
+        bookList.add(book);
+        return bookList;
     }
+
+    // Remove book by ID
     
+    public List<Book> removeBook() {
+        System.out.print("Enter the ID book: ");
+        String id = sc.nextLine();
+        int i = 0;
+        // Nên tạo clone cho object Book hoặc new Book(bookList)
+        for (Book obj : bookList) {
+            if (obj.getIdBook().equals(id)) {
+                bookList.remove(i);
+                return bookList;
+            }
+            ++i;
+        }
+        return bookList;
+    }
+
     public <E> boolean writeFile(String path, List<E> list) throws Exception {
         int fID = 1;
         try {
@@ -158,25 +174,9 @@ public class Bookstore {
         }
         // Add thêm sách vào file.txt thì cần kết hợp thêm kỹ thuật viết file (WirteFile)
     }
-    
-    // Remove book by ID
-    
-    public List<Book> removeBook() {
-        List<Book> list = bookList;
-        System.out.print("Enter the ID book: ");
-        String id = sc.nextLine();
-        int i = 0;
-        for(Book obj : list) {
-            if(obj.getIdBook().equals(id)) {
-                list.remove(i);
-                return list;
-            }
-            ++i;
-        }
-        return list;
-    }
 
     // Sorting following Price, Name, Type and Quantity
+    
     public List<Book> sortByPrice() {
         List<Book> sortingList = new ArrayList<>(bookList);
         Collections.sort(sortingList, new Comparator<Book>() {
