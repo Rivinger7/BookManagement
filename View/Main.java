@@ -24,6 +24,8 @@ public class Main {
         
         final String fileBook = "src\\Input\\ListOfBooks.txt";
         final String fileUser = "src\\Input\\ListOfUsers.txt";
+        final String fileAddingBook = "src\\Output\\ListOfBooks2.txt";
+        final String fileAddingUser = "src\\Output\\ListOfUsers2.txt";
         int choice = 0;
         Bookstore bookstore = null;
         bookstore = new Bookstore(fileBook, fileUser);
@@ -39,6 +41,12 @@ public class Main {
             switch(choice) {
                 case 1:
                     System.out.println("1");
+                    break;
+                case 5:
+                    bookstore.writeFile(fileBook, bookstore.removeBook());
+                    break;
+                case 6:
+                    bookstore.writeFile(fileBook, bookstore.addBook());
                     break;
                 default:
                     System.out.println("Good bye!");

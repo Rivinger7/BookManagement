@@ -11,6 +11,7 @@ import Model.User;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.InputStreamReader;
 
 public class Bookstore {
@@ -18,6 +19,7 @@ public class Bookstore {
     private List<Book> bookList = null;
     private List<User> userList = null;
     Scanner sc = new Scanner(System.in);
+//    private int fID = 1;
 
     public Bookstore(String path1, String path2) throws Exception {
         bookList = loadBooks(path1);
@@ -52,10 +54,10 @@ public class Bookstore {
         } catch (Exception ex) {
             throw ex;
         }
-        for (Book obj1 : bookList) {
-            System.out.println(obj1);
-            System.out.println("");
-        }
+//        for (Book obj1 : bookList) {
+//            System.out.println(obj1);
+//            System.out.println("");
+//        }
         return bookList;
     }
 
@@ -90,10 +92,10 @@ public class Bookstore {
         } catch (Exception ex) {
             throw ex;
         }
-        for (User obj1 : userList) {
-            System.out.println(obj1);
-            System.out.println("");
-        }
+//        for (User obj1 : userList) {
+//            System.out.println(obj1);
+//            System.out.println("");
+//        }
         return userList;
     }
 
@@ -114,5 +116,111 @@ public class Bookstore {
         }
         System.out.println("Username or Password is invalid");
         return false;
+    }
+
+    // Other Options
+    
+    // Adding and Removing function
+    
+    public List<Book> addBook() {
+        List<Book> list = new ArrayList<>(bookList);
+        // Nên thêm chức năng nhập vào mỗi function
+        System.out.print("Enter the book name: ");
+        String name = sc.nextLine();
+        System.out.print("Enter the type book: ");
+        String type = sc.nextLine();
+        System.out.print("Enter the price: ");
+        double price = sc.nextDouble();
+        System.out.print("Enter the quantity: ");
+        int quantity = sc.nextInt();
+        sc.skip("\n");
+        
+        Book book = new Book("ISBN 978", price, name, type, quantity);
+        list.add(book);
+        return list;
+    }
+    
+    public <E> boolean writeFile(String path, List<E> list) throws Exception {
+        int fID = 1;
+        try {
+            FileWriter writer = new FileWriter(path);
+            for (E book : list) {
+                writer.write(fID++ + "," + book.toString());
+                writer.write("\n");
+            }
+            writer.close();
+            System.out.println("File " + path + " has been written successfully.");
+            return true;
+        } catch (Exception ex) {
+            System.out.println("An error occurred while writing to the file: " + path);
+            ex.printStackTrace();
+            return false;
+        }
+        // Add thêm sách vào file.txt thì cần kết hợp thêm kỹ thuật viết file (WirteFile)
+    }
+    
+    // Remove book by ID
+    
+    public List<Book> removeBook() {
+        List<Book> list = bookList;
+        System.out.print("Enter the ID book: ");
+        String id = sc.nextLine();
+        int i = 0;
+        for(Book obj : list) {
+            if(obj.getIdBook().equals(id)) {
+                list.remove(i);
+                return list;
+            }
+            ++i;
+        }
+        return list;
+    }
+
+    // Sorting following Price, Name, Type and Quantity
+    public List<Book> sortByPrice() {
+        List<Book> sortingList = new ArrayList<>(bookList);
+        Collections.sort(sortingList, new Comparator<Book>() {
+            @Override
+            public int compare(Book o1, Book o2) {
+                return Double.compare(o1.getPrice(), o2.getPrice());
+            }
+        });
+        return sortingList;
+    }
+
+    public List<Book> sortByName() {
+        List<Book> sortingList = new ArrayList<>(bookList);
+        Collections.sort(sortingList, new Comparator<Book>() {
+            @Override
+            public int compare(Book o1, Book o2) {
+                return o1.getBookName().compareTo(o2.getBookName());
+            }
+
+        });
+        return sortingList;
+    }
+
+    public List<Book> sortByType() {
+        List<Book> sortingList = new ArrayList<>(bookList);
+        Collections.sort(sortingList, new Comparator<Book>() {
+            @Override
+            public int compare(Book o1, Book o2) {
+                return o1.getBookType().compareTo(o2.getBookType());
+            }
+
+        });
+        return sortingList;
+    }
+
+    public List<Book> sortByQuantity() {
+        List<Book> sortingList = new ArrayList<>(bookList);
+        Collections.sort(sortingList, new Comparator<Book>() {
+            @Override
+            public int compare(Book o1, Book o2) {
+                return Integer.compareUnsigned(o1.getQuantity(), o2.getQuantity());
+            }
+
+        });
+        return sortingList;
     }
 }

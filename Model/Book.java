@@ -9,23 +9,29 @@ import java.util.*;
 
 public class Book {
     
+    private static int oID = 1000;
     private String idBook;
     private double price;
     private String bookName;
     private String bookType;
     private int quantity;
+    
 
     public Book() {
     }
 
     public Book(String idBook, double price, String bookName, String bookType, int quantity) {
-        this.idBook = idBook;
+        this.idBook = Integer.toString(oID++);
         this.price = price;
         this.bookName = bookName;
         this.bookType = bookType;
         this.quantity = quantity;
     }
 
+    public String getIdBook() {
+        return idBook;
+    }
+    
     public double getPrice() {
         return price;
     }
@@ -40,6 +46,10 @@ public class Book {
 
     public int getQuantity() {
         return quantity;
+    }
+
+    public void setIdBook(String idBook) {
+        this.idBook = idBook;
     }
 
     public void setPrice(double price) {
@@ -60,9 +70,11 @@ public class Book {
     
     @Override
     public String toString() {
-        return "Book [" + "Name = " + bookName
-                + ", Type = " + bookType
-                + ", Price = " + price + "$"
-                + ", Quantity = " + quantity + "]";
+//        return "Book [" + "Name = " + bookName
+//                + ", Type = " + bookType
+//                + ", Price = " + price + "$"
+//                + ", Quantity = " + quantity + "]";
+        return "ISBN 978" + "-" + idBook + "," + bookName + "," + bookType
+                + "," + (int)price + "," + quantity;
     }
 }
