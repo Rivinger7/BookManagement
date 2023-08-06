@@ -37,13 +37,13 @@ public class Bookstore {
                 Book book = null;
                 if (!thisLine.trim().isEmpty()) {
                     String split[] = thisLine.split(",");
-                    String id = split[1].trim();
+//                    String id = split[1].trim();
                     String name = split[2].trim();
                     String type = split[3].trim();
                     double price = Double.parseDouble(split[4].trim());
                     int quantity = Integer.parseInt(split[5].trim());
 
-                    book = new Book(id, price, name, type, quantity);
+                    book = new Book(price, name, type, quantity);
                 }
                 if (bookList == null) {
                     bookList = new ArrayList<>();
@@ -134,7 +134,7 @@ public class Bookstore {
         int quantity = sc.nextInt();
         sc.skip("\n");
 
-        Book book = new Book("ISBN 978", price, name, type, quantity);
+        Book book = new Book(price, name, type, quantity);
         bookList.add(book);
         return bookList;
     }
